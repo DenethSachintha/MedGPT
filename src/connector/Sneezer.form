@@ -36,10 +36,6 @@
                       <Component id="jLabel1" min="-2" pref="260" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="280" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="150" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jCheckBox7" min="-2" pref="85" max="-2" attributes="0"/>
@@ -50,11 +46,15 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="203" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="222" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" pref="330" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="306" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" pref="150" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="293" max="32767" attributes="0"/>
+              <EmptySpace pref="274" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,11 +73,11 @@
               <Component id="jCheckBox6" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jCheckBox7" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <EmptySpace pref="76" max="32767" attributes="0"/>
               <Component id="jLabel2" min="-2" pref="66" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" pref="52" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -98,7 +98,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sneez"/>
+        <Property name="text" type="java.lang.String" value="Sneezing"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox3ActionPerformed"/>

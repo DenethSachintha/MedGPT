@@ -50,7 +50,7 @@ public class Sneezer extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox3.setText("Sneez");
+        jCheckBox3.setText("Sneezing");
         jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox3ActionPerformed(evt);
@@ -78,9 +78,6 @@ public class Sneezer extends javax.swing.JFrame {
                         .addGap(60, 60, 60)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(280, 280, 280)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -89,9 +86,12 @@ public class Sneezer extends javax.swing.JFrame {
                             .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(293, Short.MAX_VALUE))
+                        .addGap(222, 222, 222)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(306, 306, 306)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(274, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,11 +108,11 @@ public class Sneezer extends javax.swing.JFrame {
                 .addComponent(jCheckBox6)
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
+                .addGap(52, 52, 52)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addGap(68, 68, 68))
         );
 
         pack();
@@ -124,8 +124,8 @@ public class Sneezer extends javax.swing.JFrame {
         if(jCheckBox4.isSelected()&&jCheckBox5.isSelected()&&jCheckBox6.isSelected()){
         symptoms = new String[]{"fever", "cough", "fatigue"};
     }
-    else if(jCheckBox3.isSelected()){
-         symptoms = new String[]{"sneezing"};
+    else if(jCheckBox3.isSelected()&&jCheckBox4.isSelected()&&jCheckBox5.isSelected()){
+         symptoms = new String[]{"fever","cough","sneezing"};
         
     }
     else if(jCheckBox5.isSelected()&&jCheckBox3.isSelected()&&jCheckBox7.isSelected()){
@@ -133,13 +133,13 @@ public class Sneezer extends javax.swing.JFrame {
     }
       Query.hasSolution("consult('assignment.pl')");
     
-       String query = "predict_disease([" + String.join(",", symptoms) + "], Disease)";
-
+       String query = "disease([" + String.join(",", symptoms) + "],0,Result)";
+        System.out.println(query);
    
         Query prologQuery = new Query(query);
         if (prologQuery.hasSolution()) {
           
-            Term diseaseTerm = prologQuery.oneSolution().get("Disease");
+            Term diseaseTerm = prologQuery.oneSolution().get("Result");
             String disease = diseaseTerm.toString(); 
                jLabel2.setText("Predicted Disease: " + disease);
         } else {
