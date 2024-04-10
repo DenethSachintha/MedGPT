@@ -1,57 +1,18 @@
-bird(laysan_albatross):- family(albatross),color(white).
-bird(black_footed_albatross):- family(albatross),color(dark).
-bird(whistling_swan) :- family(swan), voice(muffled_musical_whistle).
-bird(trumpeter_swan) :- family(swan), voice(loud_trumpeting).
-bird(canada_goose):- family(goose), season(winter), country(united_states),head(black),cheek(white).
-bird(canada_goose):- family(goose), season(summer), country(canada), head(black), cheek(white).
-bird(mallard):- family(duck), voice(quack), head(green).
-bird(mallard):- family(duck), voice(quack), color(mottled_brown).
+symptom(fever).
+symptom(cough).
+symptom(fatigue).
+symptom(sneezing).
+symptom(headache).
 
-order(tubenose) :- nostrils(external_tubular),live(at_sea),bill(hooked).
-order(waterfowl) :- feet(webbed), bill(flat).
-family(albatross) :- order(tubenose),size(large), wings(long_narrow).
-family(swan) :- order(waterfowl), neck(long),color(white), flight(ponder).
-season(winter).
-season(summer).
+disease(cold, [fever, cough, fatigue]).
+disease(cold, [fever, cough, fatigue,headache]).
 
-country(united_states):- region(mid_west).
-country(united_states):- region(south_west).
-country(united_states):- region(north_west).
-country(united_states):- region(mid_atlantic).
-country(canada):- province(ontario).
-country(canada):- province(quebec).
+disease(cold, [sneezing, cough,headache]).
+disease(cold, [fever,sneezing,headache]).
+disease(cold, [sneezing]).
+disease(flu, [fever, cough, fatigue, sore_throat]).
 
-region(new_england):- state(X),  member(X, [massachusetts, vermont]).
-region(south_east):- state(X),  member(X, [florida, mississippi]).
+predict_disease(Symptoms, Disease) :-disease(Disease,DiseaseSymptoms),sublist(DiseaseSymptoms, Symptoms).
 
-eats(X):- ask(eats, X).
-feet(X):- ask(feet, X).
-wings(X):- ask(wings, X).
-neck(X):- ask(neck, X).
-color(X):- ask(color, X).
-
-ask(Attr, Val):- write(Attr:Val), write('? '),read(yes). 
-
-province(ontario).
-province(quebec).
-voice(quack).
-family(goose).
-head(black).
-cheek(whte).
-color(mottled_brown).
-family(duck).
-family(albatross).
-family(swan).
-color(white).
-voice(muffled_musical_whistle).
-voice(loud_trumpeting).
-color(dark).
-nostrils(external_tubular).
-live(at_sea).
-bill(hooked).
-bill(flat).
-feet(webbed).
-neck(long).
-flight(ponder).
-size(large).
-wings(long_narrow).
+sublist([], _).
+sublist([H|T], List) :- member(H, List),write(H),sublist(T, List).
