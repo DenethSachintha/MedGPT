@@ -4,6 +4,8 @@
  */
 package connector;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JCheckBox;
 import org.jpl7.Query;
 import org.jpl7.Term;
@@ -17,6 +19,10 @@ public class Sneezer extends javax.swing.JFrame {
 
     public Sneezer() {
         initComponents();
+        jComboBox1.setEnabled(false);
+        jLabel3.setEnabled(false);
+        jComboBox2.setEnabled(false);
+        jLabel4.setEnabled(false);
     }
 
     /**
@@ -38,6 +44,11 @@ public class Sneezer extends javax.swing.JFrame {
         jCheckBox6 = new javax.swing.JCheckBox();
         jCheckBox7 = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
+        jCheckBox8 = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,8 +69,18 @@ public class Sneezer extends javax.swing.JFrame {
         });
 
         jCheckBox4.setText("Cough");
+        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox4ActionPerformed(evt);
+            }
+        });
 
         jCheckBox5.setText("Fever");
+        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox5ActionPerformed(evt);
+            }
+        });
 
         jCheckBox6.setText("fatigue");
 
@@ -68,6 +89,26 @@ public class Sneezer extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jCheckBox8.setText("Soar Throat");
+        jCheckBox8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox8ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("how long has it been since the fever?");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Few Hours ago", "1", "2", "3", "More than 3 days" }));
+
+        jLabel4.setText("how long has it been since the cough?");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "More than 5 days" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,30 +116,38 @@ public class Sneezer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                        .addGap(121, 121, 121)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(222, 222, 222)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(306, 306, 306)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(274, Short.MAX_VALUE))
+                        .addGap(213, 213, 213)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox3)
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox4)
@@ -108,32 +157,42 @@ public class Sneezer extends javax.swing.JFrame {
                 .addComponent(jCheckBox6)
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox8)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGap(26, 26, 26)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addGap(119, 119, 119))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JCheckBox[] checkboxes = {jCheckBox3, jCheckBox4, jCheckBox5, jCheckBox6,jCheckBox7};
-        String [] symptoms={};
-        if(jCheckBox4.isSelected()&&jCheckBox5.isSelected()&&jCheckBox6.isSelected()){
-        symptoms = new String[]{"fever", "cough", "fatigue"};
-    }
-    else if(jCheckBox3.isSelected()&&jCheckBox4.isSelected()&&jCheckBox5.isSelected()){
-         symptoms = new String[]{"fever","cough","sneezing"};
         
-    }
-    else if(jCheckBox5.isSelected()&&jCheckBox3.isSelected()&&jCheckBox7.isSelected()){
-             symptoms = new String[]{"fever", "sneezing", "headache]"};
-    }
+        JCheckBox[] checkboxes = {jCheckBox3, jCheckBox4, jCheckBox5, jCheckBox6,jCheckBox7,jCheckBox7};
+              List<String>SelectedItems=new ArrayList<>();
+        String [] symptoms={"sneezing","cough","fever","fatigue", "headache","soarthroat"};
+        for(int i=0;i<6;i++){
+            if(checkboxes[i].isSelected()){
+                SelectedItems.add(symptoms[i]);
+
+            }
+        }
+        System.out.println(SelectedItems);
+      
       Query.hasSolution("consult('assignment.pl')");
     
-       String query = "disease([" + String.join(",", symptoms) + "],0,Result)";
+       String query = "disease([" + String.join(",", SelectedItems) + "],0,Result)";
         System.out.println(query);
    
         Query prologQuery = new Query(query);
@@ -142,19 +201,77 @@ public class Sneezer extends javax.swing.JFrame {
             Term diseaseTerm = prologQuery.oneSolution().get("Result");
             String disease = diseaseTerm.toString(); 
                jLabel2.setText("Predicted Disease: " + disease);
+              
         } else {
               jLabel2.setText("No solution found.");
          
         }
-        for(int i=0;i<5;i++){
+        if(jCheckBox4.isSelected()){
+            String query1 = "alert(cough, 1, Message)";
+Query prologQuery1 = new Query(query1);
+if (prologQuery1.hasSolution()) {
+    Term messageTerm = prologQuery1.oneSolution().get("Message");
+    if (messageTerm != null) {
+        String message = messageTerm.toString(); 
+        System.out.println(message);
+    } else {
+        System.out.println("No message to display");
+    }
+} else {
+    System.out.println("No solution found for alert query");
+}
+        }
+
+         
+        
+        for(int i=0;i<6;i++){
              checkboxes[i].setSelected(false);
         }
+         SelectedItems.clear();
      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
+     if (jCheckBox5.isSelected()) {
+        // Enable the JComboBox
+        jComboBox1.setEnabled(true);
+        jLabel3.setEnabled(true);
+        
+       
+        jComboBox1.setSelectedIndex(0); 
+    } else {
+       
+        jComboBox1.setEnabled(false);
+        jLabel3.setEnabled(false);
+    }
+    }//GEN-LAST:event_jCheckBox5ActionPerformed
+
+    private void jCheckBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox8ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+if (jCheckBox4.isSelected()) {
+        // Enable the JComboBox
+        jComboBox2.setEnabled(true);
+        jLabel4.setEnabled(true);
+        
+       
+        jComboBox2.setSelectedIndex(0); 
+    } else {
+       
+        jComboBox2.setEnabled(false);
+        jLabel4.setEnabled(false);
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
 
     public static void main(String args[]) {
     
@@ -175,7 +292,12 @@ public class Sneezer extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JCheckBox jCheckBox7;
+    private javax.swing.JCheckBox jCheckBox8;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

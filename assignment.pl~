@@ -5,13 +5,16 @@ symptom(sneezing).
 symptom(headache).
 
 
-disease([],N,Result):-(N>=50->
+disease([],N,Result):-(N=<65->
                       Result =cold;
                       Result =flu).
 
-disease([H|T],N,Result):-(H == fever->N1 is N+10;
-                  H == cough->N1 is N+20;
-                  H == sneezing-> N1 is N+30),write(N1),disease(T,N1,Result).
+disease([H|T],N,Result):-(H == fever-> N1 is N+25;
+                  H == cough->N1 is N+30;
+                  H == fatigue->N1 is N+40;
+                  H == headache->N1 is N+35;
+                  H == sneezing-> N1 is N+10;
+                         H==soarthroat-> N1 is N+15),write(N1),disease(T,N1,Result).
 
 %disease(cold, [fever, cough, fatigue]).
 %disease(cold, [fever, cough, fatigue,headache]).

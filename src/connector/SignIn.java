@@ -23,6 +23,8 @@ private String  username,pass,mail,password,name;
     public SignIn() {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
