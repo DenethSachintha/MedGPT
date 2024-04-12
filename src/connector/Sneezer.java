@@ -1,4 +1,3 @@
-
 package connector;
 
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import org.jpl7.Query;
 import org.jpl7.Term;
 
 public class Sneezer extends javax.swing.JFrame {
-
 
     public Sneezer() {
         initComponents();
@@ -77,7 +75,7 @@ public class Sneezer extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jCheckBox8.setText("Soar Throat");
+        jCheckBox8.setText("Sore Throat");
         jCheckBox8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox8ActionPerformed(evt);
@@ -167,9 +165,9 @@ public class Sneezer extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        JCheckBox[] checkboxes = {jCheckBox3, jCheckBox4, jCheckBox5, jCheckBox6,jCheckBox7,jCheckBox7};
+        JCheckBox[] checkboxes = {jCheckBox3, jCheckBox4, jCheckBox5, jCheckBox6,jCheckBox7,jCheckBox8};
               List<String>SelectedItems=new ArrayList<>();
-        String [] symptoms={"sneezing","cough","fever","fatigue", "headache","soarthroat"};
+        String [] symptoms={"sneezing","cough","fever","fatigue", "headache","sorethroat"};
         for(int i=0;i<6;i++){
             if(checkboxes[i].isSelected()){
                 SelectedItems.add(symptoms[i]);
@@ -180,7 +178,7 @@ public class Sneezer extends javax.swing.JFrame {
       
       Query.hasSolution("consult('assignment.pl')");
     
-       String query = "disease([" + String.join(",", SelectedItems) + "],0,Result)";
+       String query = "disease([" + String.join(",", SelectedItems) + "],Result)";
         System.out.println(query);
    
         Query prologQuery = new Query(query);
