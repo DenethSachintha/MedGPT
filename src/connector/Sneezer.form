@@ -108,7 +108,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="What are the symptoms do you have?"/>
+        <Property name="text" type="java.lang.String" value="Select symptoms you have:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
