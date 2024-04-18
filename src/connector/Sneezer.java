@@ -4,19 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import org.jpl7.Query;
 import org.jpl7.Term;
 
 public class Sneezer extends javax.swing.JFrame {
      DefaultComboBoxModel<String> feverComboBoxModel = new DefaultComboBoxModel<>(new String[]{"Few Hours ago", "1", "2", "3", "More than 3 days"});
     DefaultComboBoxModel<String> coughComboBoxModel = new DefaultComboBoxModel<>(new String[]{"1", "2", "3", "4", "5", "More than 5 days"});
-
+    int []fever={0,1,2,3,4};
+     int []cough={1,2,3,4,5,6};
+     
     public Sneezer() {
         initComponents();
         jComboBox1.setModel(feverComboBoxModel);
         jComboBox2.setModel(coughComboBoxModel);
-        jComboBox1.setEnabled(false);
+      
         jLabel3.setEnabled(false);
+          jComboBox1.setEnabled(false);
         jComboBox2.setEnabled(false);
         jLabel4.setEnabled(false);
     }
@@ -125,12 +129,12 @@ public class Sneezer extends javax.swing.JFrame {
                                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(202, 202, 202)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(209, 209, 209)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(287, Short.MAX_VALUE))
+                        .addGap(282, 282, 282)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(294, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,11 +149,11 @@ public class Sneezer extends javax.swing.JFrame {
                 .addComponent(jCheckBox5)
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jCheckBox7)
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox8)
-                .addGap(28, 28, 28)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -157,11 +161,11 @@ public class Sneezer extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(50, 50, 50)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,7 +188,7 @@ public class Sneezer extends javax.swing.JFrame {
       Query.hasSolution("consult('assignment.pl')");
     
        String query = "disease([" + String.join(",", SelectedItems) + "],Result)";
-        System.out.println(query);
+ 
    
         Query prologQuery = new Query(query);
         if (prologQuery.hasSolution()) {
@@ -197,33 +201,40 @@ public class Sneezer extends javax.swing.JFrame {
               jLabel2.setText("No solution found.");
          
         }
+        System.out.println(jComboBox1.getSelectedIndex());
+        System.out.println(jComboBox2.getSelectedIndex());
         if(jCheckBox4.isSelected() ||jCheckBox5.isSelected()){
         if(jCheckBox4.isSelected()&&jCheckBox5.isSelected()==false){
-             query1 = "alert([" + String.join(",", symptoms[1]) + "], ["+(String) jComboBox2.getSelectedItem()+"], Message)";
-            System.out.println(query1);
+            
+                    query1 = "alert([" + String.join(",", symptoms[1]) + "], ["+cough[jComboBox2.getSelectedIndex()]+"], Message)";
+                   
         }
         else if(jCheckBox5.isSelected()&&jCheckBox4.isSelected()==false){
-            query1 = "alert([" + String.join(",", symptoms[2]) + "], ["+(String) jComboBox1.getSelectedItem()+"], Message)";
-        System.out.println(query1);
+                  query1 = "alert([" + String.join(",", symptoms[2]) + "], ["+fever[jComboBox1.getSelectedIndex()]+"], Message)";
+            
         }
         else if(jCheckBox5.isSelected()&&jCheckBox4.isSelected()){
-                
-            query1 = "alert([" + symptoms[1]+","+symptoms[2]+"],["+(String) jComboBox2.getSelectedItem()+","+(String) jComboBox1.getSelectedItem()+"], Message)";
-            System.out.println(query1);
+           query1 = "alert([" + symptoms[1]+","+symptoms[2]+"],["+cough[jComboBox2.getSelectedIndex()]+","+fever[jComboBox1.getSelectedIndex()]+"], Message)";
+ 
         }
         }
+        if(query1!=null){
         Query prologQuery1 = new Query(query1);
 if (prologQuery1.hasSolution()) {
     Term messageTerm = prologQuery1.oneSolution().get("Message");
     if (messageTerm != null) {
         String message = messageTerm.toString(); 
-        System.out.println(message);
+        
+         JOptionPane.showMessageDialog(null, message.replace("[", "").replace("]", "").replace(",", "").replace("\'", ""));
     } else {
-        System.out.println("No message to display");
+           JOptionPane.showMessageDialog(null,"No message to display");
+   
     }
 } else {
-    System.out.println("No solution found for alert query");
+      JOptionPane.showMessageDialog(null,"No solution found for alert query");
+ 
 }
+        }
     
     
     
@@ -231,6 +242,8 @@ if (prologQuery1.hasSolution()) {
              checkboxes[i].setSelected(false);
         }
          SelectedItems.clear();
+        jComboBox1.setEnabled(false);
+        jComboBox2.setEnabled(false);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
