@@ -4,6 +4,10 @@
  */
 package connector;
 
+import javax.swing.JOptionPane;
+import org.jpl7.Query;
+import org.jpl7.Term;
+
 /**
  *
  * @author User
@@ -76,22 +80,32 @@ public class BMI extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Do you have diagnosed with cardiovascular diseases before?");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Do you currently smoke cigarettes or use any other tobacco products?");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("Next");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -175,9 +189,9 @@ public class BMI extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,6 +205,72 @@ public class BMI extends javax.swing.JFrame {
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+int age=0;
+String gender=null;
+double weight=0.00,height=0.00;
+String smoke,suffered;
+int alchohol;
+int[]duration={0,1,2,3,4};
+try{
+age=Integer.parseInt( jTextField1.getText());
+}
+catch(Exception e){
+        JOptionPane.showMessageDialog(null,"Invalid value for age ");
+}
+
+gender=(String)jComboBox1.getSelectedItem();
+suffered=(String)jComboBox2.getSelectedItem();
+smoke=(String)jComboBox3.getSelectedItem();
+alchohol=duration[jComboBox4.getSelectedIndex()];
+try{
+height=Double.parseDouble( jTextField3.getText());
+weight=Double.parseDouble(jTextField4.getText());
+}
+catch(Exception e){
+        JOptionPane.showMessageDialog(null,"Invalid values for Weight or Height ");
+}
+
+Query.hasSolution("consult('assignment.pl')");
+    
+       String query1 = "bmi("+weight+","+height+","+age+")";
+ 
+ 
+   
+        Query prologQuery2 = new Query(query1);
+        if (prologQuery2.hasSolution()) {
+          
+//            Term diseaseTerm2= prologQuery2.oneSolution().get("Result");
+//             Term diseaseTerm3= prologQuery2.oneSolution().get("Row");
+//            String bmiresult = diseaseTerm2.toString(); 
+//             String weight1 = diseaseTerm3.toString();
+//            
+//               System.out.println("Calculated BMI value is  " + bmiresult);
+//                System.out.println("Calculated BMI value is  " + weight1);
+//              
+        } else {
+            System.out.println("No solution found.");
+         
+        }
+jTextField1.setText("");
+jTextField3.setText("");
+jTextField4.setText("");
+
+Cardio_Vascular obj=new Cardio_Vascular();
+
+obj.setVisible(true);
+
+setVisible(false);
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Home obj2=new Home();
+obj2.setVisible(true);
+setVisible(false);// TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

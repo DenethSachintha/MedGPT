@@ -25,8 +25,17 @@ message1(Value,Message):-(Value == 'Verylow' -> Message = 'You have a mild fever
         Value == 'Dangerous' -> Message = 'Your fever is dangerously high.\n Seek emergency medical assistance immediately.\n  While waiting for help, try to cool down your body with cool compresses and remove excess clothing.';
         Value == 'Critical' -> Message = 'Your fever is at a critical level.\n Immediate medical attention is necessary.\n Do not delay seeking help.';
         Message = 'Your fever requires attention.\n Monitor your temperature closely and take appropriate measures to reduce it. If the fever persists or worsens, seek medical advice.').
-
+:-dynamic bmi/4.
 alert(Symptom,Duration,Message):-looper(Symptom,Duration,Message).
+
+bmiresult(Value,Age):-(Value<18.5->Result=underweight,Weight is 2;
+                  Value>=18.5,Value=<25->Result=normal,Weight is 1;
+                  Result=overweight,Weight is 2),assert(bmi(Age,Value,Result,Weight)).
+ start:- findall(Result,bmi(_,_,Result,_),List),printList(List).
+printList([]).
+printList([H|T]):-write(H),nl,printList(T).
+
+bmi(Weight,Height,Age):-Value is Weight/((Height/100)*(Height/100)),bmiresult(Value,Age).
 
 
 looper([],[],[]).
