@@ -28,6 +28,12 @@ message1(Value,Message):-(Value == 'Verylow' -> Message = 'You have a mild fever
 
 alert(Symptom,Duration,Message):-looper(Symptom,Duration,Message).
 
+bmiresult(Value,Result,Weight):-(Value<18.5->Result=underweight,Weight is 2;
+                  Value>=18.5,Value=<25->Result=normal,Weight is 1;
+                  Result=overweight,Weight is 2).
+
+bmi(Weight,Height,Result,Row):-Value is Weight/((Height/100)*(Height/100)),bmiresult(Value,Result,Row).
+
 
 looper([],[],[]).
 looper([H1|T1],[H2|T2],[H3|T3]):-symptom_duration(H2,Risk),(H1==cough->message(Risk,H3);
