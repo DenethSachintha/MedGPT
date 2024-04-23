@@ -11,21 +11,23 @@ symptom_duration(Duration,Risk):-(
                                  Duration>1,Duration<2-> Risk='Average';
                                  Duration>=2,Duration<3->Risk='High';
                                  Risk='Dangerouse').
+message(Value, Message):-
+    (Value == 'Verylow' -> Message = '\n=> You are having cough and You are likely experiencing mild symptoms.\n=> It\'s advisable to rest and stay hydrated.\n=> If symptoms persist, consult a healthcare professional.\n=> Avoid consuming cool water and limit exposure to water, especially at night.';
+     Value == 'Low' -> Message = '\n=> Your cough is mild.\n=> Consider taking over-the-counter medications and getting plenty of rest.\n=> If symptoms worsen, seek medical advice.\n=> Limit exposure to irritants such as smoke or strong odors.\n=> Avoid extreme temperatures, both hot and cold, as they can exacerbate symptoms.';
+     Value == 'Average' -> Message = '\n=> Your cough is moderate.\n=> It is recommended to monitor your condition closely and consider consulting a healthcare provider for further evaluation.\n=> Avoid activities that may strain your throat, such as prolonged speaking or singing.\n=> Also, try to avoid environments with poor air quality.';
+     Value == 'High' -> Message = '\n=> Your cough is severe.\n=> It\'s important to seek medical attention promptly for proper diagnosis and treatment.\n=> Avoid exposure to individuals who are sick, as well as crowded places where the risk of infection is higher.\n=> Rest as much as possible and avoid strenuous activities.';
+     Value == 'Dangerouse' -> Message = '\n=> Your cough is critical.\n=> Please seek immediate medical assistance.\n=> Do not delay seeking help.').
 
-message(Value,Message):-(Value=='Verylow'-> Message='You are having cough and You are likely experiencing mild symptoms. \n It\'s advisable to rest and stay hydrated.\n If symptoms persist, consult a healthcare professional.\n Avoid consuming cool water and limit exposure to water, especially at night.';
-                                 Value=='Low'-> Message='Your cough is mild. \n Consider taking over-the-counter medications and getting plenty of rest. \n If symptoms worsen, seek medical advice.\n Limit exposure to irritants such as smoke or strong odors.\n Avoid extreme temperatures, both hot and cold, as they can exacerbate symptoms.';
-                                 Value=='Average'->Message= 'Your cough is moderate.\n It is recommended to monitor your condition closely and consider consulting a healthcare provider for further evaluation.\n Avoid activities that may strain your throat, such as prolonged speaking or singing.\n Also, try to avoid environments with poor air quality.';
-                                 Value=='High'->Message='Your cough is severe.\n It\'s important to seek medical attention promptly for proper diagnosis and treatment.\n Avoid exposure to individuals who are sick, as well as crowded places where the risk of infection is higher.\n Rest as much as possible and avoid strenuous activities.';
-                                 Value=='Dangerouse'->Message='Your cough is critical.\n Please seek immediate medical assistance.\n Do not delay seeking help.').
+message1(Value, Message):-
+    (Value == 'Verylow' -> Message = '\n=> You have a mild fever.\n=> It\'s advisable to rest and stay hydrated.\n=> If the fever persists or worsens, consider consulting a healthcare professional.';
+     Value == 'Low' -> Message = '\n=> Your fever is low-grade.\n=> Get plenty of rest and consider taking over-the-counter medications to reduce fever.\n=> If the fever persists or becomes high, seek medical advice.';
+     Value == 'Average' -> Message = '\n=> Your fever is moderate. It\'s recommended to monitor your temperature closely and take appropriate measures to reduce it, such as using fever-reducing medications and cool compresses.\n=> If the fever persists or worsens, seek medical attention.';
+     Value == 'High' -> Message = '\n=> Your fever is high.\n=> It\'s important to take immediate steps to lower your temperature, such as using fever-reducing medications and applying cool compresses.\n=> If the fever persists or reaches dangerously high levels, seek urgent medical attention.';
+     Value == 'Dangerous' -> Message = '\n=> Your fever is dangerously high.\n=> Seek emergency medical assistance immediately.\n=> While waiting for help, try to cool down your body with cool compresses and remove excess clothing.';
+     Value == 'Critical' -> Message = '\n=> Your fever is at a critical level.\n=> Immediate medical attention is necessary.\n=> Do not delay seeking help.';
+     Message = '\n=> Your fever requires attention.\n=> Monitor your temperature closely and take appropriate measures to reduce it. If the fever persists or worsens, seek medical advice.').
 
-message1(Value,Message):-(Value == 'Verylow' -> Message = 'You have a mild fever.\n  It\'s advisable to rest and stay hydrated.\n If the fever persists or worsens, consider consulting a healthcare professional.';
-        Value == 'Low' -> Message = 'Your fever is low-grade.\n Get plenty of rest and consider taking over-the-counter medications to reduce fever.\n If the fever persists or becomes high, seek medical advice.';
-        Value == 'Average' -> Message = 'Your fever is moderate. It\'s recommended to monitor your temperature closely and take appropriate measures to reduce it, such as using fever-reducing medications and cool compresses.\n If the fever persists or worsens, seek medical attention.';
-        Value == 'High' -> Message = 'Your fever is high.\n It\'s important to take immediate steps to lower your temperature, such as using fever-reducing medications and applying cool compresses.\n If the fever persists or reaches dangerously high levels, seek urgent medical attention.';
-        Value == 'Dangerous' -> Message = 'Your fever is dangerously high.\n Seek emergency medical assistance immediately.\n  While waiting for help, try to cool down your body with cool compresses and remove excess clothing.';
-        Value == 'Critical' -> Message = 'Your fever is at a critical level.\n Immediate medical attention is necessary.\n Do not delay seeking help.';
-        Message = 'Your fever requires attention.\n Monitor your temperature closely and take appropriate measures to reduce it. If the fever persists or worsens, seek medical advice.').
-
+alert(Symptom,Duration,Message):-looper(Symptom,Duration,Message).
 
 :-dynamic bmi/4.
 :-dynamic habbit/4.
@@ -33,7 +35,7 @@ message1(Value,Message):-(Value == 'Verylow' -> Message = 'You have a mild fever
 :- dynamic table2/1.
 :- dynamic details1/4.
 :-dynamic details2/2.
-alert(Symptom,Duration,Message):-looper(Symptom,Duration,Message).
+
 
 bmiresult(Value,Age,Smoke,Alchohol,Previous,Count):-(Value<18.5->Result=underweight,Weight is 20;
                   Value>=18.5,Value=<25->Result=normal,Weight is 5;
@@ -105,7 +107,7 @@ LDL<160.00->C='*Having normal LDL levels is great news for your heart health! \n
 
 (TRG>=150.00->D='*You have high triglyceride level. It can indicate an increased risk of heart disease and other health complications. It\'s important to take action to lower your triglycerides. Start by making dietary changes.\n';
 
-TRG<150.00->D='*your triglyceride levels are within the normal range, it\'s a positive sign for your overall health.\n'),assert(details1(A,B,C,D)).
+TRG<150.00->D='*your triglyceride levels are within the normal range, it\'s a positive sign for your overall health.'),assert(details1(A,B,C,D)).
 
 otheroutput(Sugur,Pressure):-
 (Sugur>110.00->A='*Your sugar levels are high, it can significantly impact heart health. Elevated sugar levels over time contribute to inflammation, damage to blood vessels, and increase the risk of developing cardiovascular diseases \n';
@@ -135,59 +137,39 @@ clear_details2 :-
 clear_table1:-retractall(table1(_)).
 clear_table2:-retractall(table2(_)).
 
+disease2(Symptoms, Result):-
+    (member(fever, Symptoms))->
+    Result =['Mononucleosis (Mono)', 'Pneumonia','COVID-19 (Coronavirus)', 'Influenza (Flu)', 'Strep Throat'];
+    (member(sneezing, Symptoms))->
+    Result =['Common Cold', 'Seasonal Allergies (Allergic Rhinitis)', 'Influenza (Flu)', 'COVID-19 (Coronavirus)', 'Sinusitis'];
+    (member(cough, Symptoms))->
+    Result =['Common Cold','Influenza (Flu)', 'COVID-19 (Coronavirus)', 'Pneumonia', 'Strep Throat', 'Sinusitis','Seasonal Allergies (Allergic Rhinitis)'];
+    (member(headche, Symptoms))->
+    Result =['Common Cold', 'Influenza (Flu)', 'COVID-19 (Coronavirus)','Mononucleosis (Mono)',  'Strep Throat', 'Pneumonia', 'Sinusitis'];
+    (member(fatigue, Symptoms))->
+    Result =[ 'Influenza (Flu)', 'COVID-19 (Coronavirus)', 'Pneumonia', 'Mononucleosis (Mono)', 'Strep Throat', 'Sinusitis'];
+    (member(sorethroat, Symptoms))->
+    Result =['Common Cold', 'Influenza (Flu)', 'COVID-19 (Coronavirus)', 'Mononucleosis (Mono)', 'Strep Throat', 'Sinusitis'].
 
-disease(Symptoms, Result):-
-    (   member(sorethroat, Symptoms),
-        member(cough, Symptoms),
-        member(fatigue, Symptoms),
-        member(headache, Symptoms),
-        member(sneezing, Symptoms)
-    ),
-    Result = cold.
-disease(Symptoms, Result):-
-    (   member(fever, Symptoms),
-        member(cough, Symptoms),
-        member(fatigue, Symptoms),
-        member(headache, Symptoms),
-        member(sneezing, Symptoms)
-    ),
-    Result = flu.
-disease(Symptoms, Result):-
-    (   member(sorethroat, Symptoms),
-        member(fever, Symptoms),
-        member(cough, Symptoms),
-        member(fatigue, Symptoms),
-        member(headache, Symptoms)
-    ),
-    Result = covid.
-disease(Symptoms, Result):-
-    (   member(sneezing, Symptoms),
-        member(sorethroat, Symptoms)
-    ),
-    Result = seasonal_allergies.
-disease(Symptoms, Result):-
-    (   member(fever, Symptoms),
-        member(fatigue, Symptoms),
-        member(sorethroat, Symptoms)
-    ),
-    Result = mono.
-disease(Symptoms, Result):-
-    (   member(fever, Symptoms),
-        member(headache, Symptoms),
-        member(sneezing, Symptoms)
-    ),
-    Result = sinusitis.
-disease(Symptoms, Result):-
-    (   member(fever, Symptoms),
-        member(cough, Symptoms),
-        member(fatigue, Symptoms),
-        member(headache, Symptoms)
-    ),
-    Result = pneumonia.
-disease(Symptoms, Result):-
-    (   member(fever, Symptoms),
-        member(sorethroat, Symptoms)
-    ),
-    Result = strep_throat.
+disease1(Symptoms, Result) :-
+    (   \+ member(fever, Symptoms) ->
+        Result = ['Common Cold', 'Seasonal Allergies (Allergic Rhinitis)', 'Strep Throat', 'Sinusitis']
+    ;   \+ member(sneezing, Symptoms) ->
+        Result = ['Mononucleosis (Mono)', 'Pneumonia', 'Strep Throat', 'Sinusitis']
+    ;   \+ member(cough, Symptoms) ->
+        Result = ['Seasonal Allergies (Allergic Rhinitis)', 'Mononucleosis (Mono)', 'Strep Throat', 'Sinusitis']
+    ;   \+ member(headache, Symptoms) ->
+        Result = ['Common Cold', 'Seasonal Allergies (Allergic Rhinitis)', 'Mononucleosis (Mono)', 'Strep Throat', 'Sinusitis']
+    ;   \+ member(fatigue, Symptoms) ->
+        Result = ['Common Cold', 'Influenza (Flu)', 'COVID-19 (Coronavirus)', 'Seasonal Allergies (Allergic Rhinitis)', 'Strep Throat', 'Sinusitis']
+    ;   \+ member(sorethroat, Symptoms) ->
+        Result = ['Common Cold', 'Influenza (Flu)', 'COVID-19 (Coronavirus)', 'Seasonal Allergies (Allergic Rhinitis)', 'Pneumonia', 'Sinusitis']
+    ).
+intersection([], _, []).
+intersection([H|T], L2, [H|Res]) :- member(H, L2),intersection(T, L2, Res).
+intersection([_|T], L2, Res) :- intersection(T, L2, Res).
 
-
+get_similar_diseases(Symptoms, SimilarDiseases) :-
+    disease1(Symptoms, Result1),
+    disease2(Symptoms, Result2),
+    intersection(Result1, Result2, SimilarDiseases).
