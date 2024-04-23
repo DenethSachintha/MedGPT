@@ -134,7 +134,7 @@ public class Sneezer extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(212, 212, 212)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addContainerGap(342, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,15 +286,15 @@ if (jCheckBox4.isSelected()) {
     }        // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
-    public static void main(String args[]) {
-    
-   
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Sneezer().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//    
+//   
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Sneezer().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

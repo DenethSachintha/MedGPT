@@ -234,25 +234,35 @@ catch(Exception e){
 
 Query.hasSolution("consult('assignment.pl')");
     
-       String query1 = "bmi("+weight+","+height+","+age+")";
- 
- 
-   
-        Query prologQuery2 = new Query(query1);
-        if (prologQuery2.hasSolution()) {
+//       String query1 = "bmi("+weight+","+height+","+age+")";
+//
+//        
+//        String query3="calculateweight1("+smoke.toLowerCase()+","+alchohol+","+suffered.toLowerCase()+",Count)";
+
+// 
+        if(weight!=0.0||height!=0.0){
+         String query= "bmi("+weight+","+height+","+age+","+smoke.toLowerCase()+","+alchohol+","+suffered.toLowerCase()+",Count)";
+           Query prolog=new Query(query);
+      
+         if (prolog.hasSolution()) {
+            
           
-//            Term diseaseTerm2= prologQuery2.oneSolution().get("Result");
-//             Term diseaseTerm3= prologQuery2.oneSolution().get("Row");
-//            String bmiresult = diseaseTerm2.toString(); 
-//             String weight1 = diseaseTerm3.toString();
-//            
-//               System.out.println("Calculated BMI value is  " + bmiresult);
-//                System.out.println("Calculated BMI value is  " + weight1);
-//              
+            Term diseaseTerm1= prolog.oneSolution().get("Count");
+       
+            String Totalweight1= diseaseTerm1.toString(); 
+    
+            
+             
         } else {
             System.out.println("No solution found.");
          
         }
+        
+
+
+  
+      
+                
 jTextField1.setText("");
 jTextField3.setText("");
 jTextField4.setText("");
@@ -263,6 +273,12 @@ obj.setVisible(true);
 
 setVisible(false);
 
+         }
+         else
+         {
+                  JOptionPane.showMessageDialog(null,"Values can't empty  ");
+         }
+     
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -275,37 +291,7 @@ setVisible(false);// TODO add your handling code here:
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BMI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BMI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BMI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BMI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new BMI().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

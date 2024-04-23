@@ -4,6 +4,10 @@
  */
 package connector;
 
+import javax.swing.JOptionPane;
+import org.jpl7.Query;
+import org.jpl7.Term;
+
 /**
  *
  * @author User
@@ -15,6 +19,15 @@ public class Cardio_Vascular extends javax.swing.JFrame {
      */
     public Cardio_Vascular() {
         initComponents();
+       String query4="getValue(List1,List2)";
+        Query value=new Query(query4);
+             
+               if (value.hasSolution()) {
+                     Term list1= value.oneSolution().get("List1");
+                     Term list2= value.oneSolution().get("List2");
+                     System.out.println("List value is "+list1+"List2 value is  "+list2);
+               }
+      
     }
 
     /**
@@ -66,7 +79,7 @@ public class Cardio_Vascular extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("VLDL cholesterol");
+        jLabel5.setText("LDL cholesterol");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -100,6 +113,11 @@ public class Cardio_Vascular extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("Next");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("Back");
@@ -214,40 +232,91 @@ public class Cardio_Vascular extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            double total=0.0,hdl=0.0,ldl=0.0,trg=0.0,pressure=0.0,sugur=0.0;
+            try{
+            total=Double.parseDouble( jTextField1.getText());
+            hdl=Double.parseDouble( jTextField2.getText());
+            trg=Double.parseDouble( jTextField3.getText());
+            ldl=Double.parseDouble( jTextField4.getText());
+            sugur=Double.parseDouble( jTextField6.getText());
+            pressure=Double.parseDouble( jTextField7.getText());
+            }
+            catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"Invalid value  ");
+            }
+            Query.hasSolution("consult('assignment.pl')");
+            String query="assist("+total+","+hdl+","+ldl+","+trg+","+pressure+","+sugur+",Count)";
+            Query prolog6=new Query(query);
+      
+         if (prolog6.hasSolution()) {
+            
+          
+            Term diseaseTerm2= prolog6.oneSolution().get("Count");
+       
+            String Totalweight1= diseaseTerm2.toString(); 
+       
+            
+             
+        } else {
+            System.out.println("No solution found.11111");
+         
+        }
+        
+         
+      if (total != 0.0 || hdl != 0.0 || trg != 0.0 || ldl != 0.0 || sugur != 0.0 || pressure != 0.0) {
+                jTextField1.setText("");
+         jTextField2.setText("");
+         jTextField3.setText("");
+    jTextField4.setText("");
+    jTextField5.setText("");
+    jTextField6.setText("");
+    jTextField7.setText("");
+         Display obj=new Display(total,hdl,ldl,trg,pressure,sugur);
+         obj.setVisible(true);
+         setVisible(false);
+         }
+         else{
+               JOptionPane.showMessageDialog(null,"Values can't empty  ");
+         }
+      
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cardio_Vascular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cardio_Vascular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cardio_Vascular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cardio_Vascular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Cardio_Vascular().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Cardio_Vascular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Cardio_Vascular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Cardio_Vascular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Cardio_Vascular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Cardio_Vascular().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
