@@ -5,12 +5,21 @@ symptom(sneezing).
 symptom(headache).
 symptom(sorethroat).
 
+
+alert(Symptom,Duration,Message):-(Duration==8->looper1(Symptom,Duration,Message);looper(Symptom,Duration,Message)).
+looper1([],_,[]).
+looper1([H1|T1],8,[H3|T3]):-message3(H1,0,H3),looper1(T1,8,T3).
+looper([],[],[]).
+looper([H1|T1],[H2|T2],[H3|T3]):-symptom_duration(H2,Risk),(H1==cough->message(Risk,H3);
+                                                            H1==fever->message1(Risk,H3)),looper(T1,T2,T3).
+
 symptom_duration(Duration,Risk):-(
                                  Duration<1 ->Risk='Verylow';
                                  Duration==1 ->Risk='Low';
                                  Duration>1,Duration<2-> Risk='Average';
                                  Duration>=2,Duration<3->Risk='High';
                                  Risk='Dangerouse').
+
 message(Value, Message):-
     (Value == 'Verylow' -> Message = '\n=> You are having cough and You are likely experiencing mild symptoms.\n=> It\'s advisable to rest and stay hydrated.\n=> If symptoms persist, consult a healthcare professional.\n=> Avoid consuming cool water and limit exposure to water, especially at night.';
      Value == 'Low' -> Message = '\n=> Your cough is mild.\n=> Consider taking over-the-counter medications and getting plenty of rest.\n=> If symptoms worsen, seek medical advice.\n=> Limit exposure to irritants such as smoke or strong odors.\n=> Avoid extreme temperatures, both hot and cold, as they can exacerbate symptoms.';
@@ -27,7 +36,11 @@ message1(Value, Message):-
      Value == 'Critical' -> Message = '\n=> Your fever is at a critical level.\n=> Immediate medical attention is necessary.\n=> Do not delay seeking help.';
      Message = '\n=> Your fever requires attention.\n=> Monitor your temperature closely and take appropriate measures to reduce it. If the fever persists or worsens, seek medical advice.').
 
-alert(Symptom,Duration,Message):-looper(Symptom,Duration,Message).
+message3(Symptom,0,Message):-(Symptom==sneezing->Message='\n=>You have sneezing so you \n have to be careful about yourself and \n try always to keep away from cold water and \n try to drink hot water.';
+                             Symptom==fatigue->Message='\n=>You have body pain so \n try to relax about your self and rest for few days';
+                             Symptom==headache->Message='\n=>You have to take a good nap \n and don\'t try to force your body to work';
+                             Message='\n=>Always try to use boil water to drink \n ').
+
 
 :-dynamic bmi/4.
 :-dynamic habbit/4.
@@ -84,9 +97,8 @@ getLastElement([_|T], X) :- getLastElement(T, X).
 
 bmi(Weight,Height,Age,Smoke,Alchohol,Previous,Count):-Value is Weight/((Height/100)*(Height/100)),bmiresult(Value,Age,Smoke,Alchohol,Previous,Count).
 
-looper([],[],[]).
-looper([H1|T1],[H2|T2],[H3|T3]):-symptom_duration(H2,Risk),(H1==cough->message(Risk,H3);
-                                                            H1==fever->message1(Risk,H3)),looper(T1,T2,T3).
+
+
 
 assist(Total,HDL,LDL,TRG,Pressure,Sugur,Count):-lipid(Total,HDL,LDL,TRG,Totalrisk1),others(Pressure,Sugur,Totalrisk2),totalWeight2(Count,Totalrisk1,Totalrisk2).
 
@@ -182,3 +194,112 @@ get_similar_diseases(Symptoms, SimilarDiseases) :-
     disease1(Symptoms, Result1),
     disease2(Symptoms, Result2),
     intersection(Result1, Result2, SimilarDiseases).
+
+finalresult([],_,_).
+finalresult([H|T],Disease,Message):-process(H,Disease,Message),finalresult(T,Disease,_).
+
+process('Nill', 'Not Sure', [
+    "Please meet your family doctor because the system can't predict the output."
+]).
+
+process('Nill', 'Common Cold', [
+    "**Rest: Get plenty of rest to help your body recover faster.",
+    "**Humidify the Air: Use a cool-mist humidifier or take a steamy shower to ease congestion and soothe a sore throat.",
+    "**Saltwater Gargle: Gargling with warm salt water can relieve a sore throat."
+]).
+
+process('Nill', 'Influenza (Flu)', [
+    "**Cover your mouth and nose with a tissue when coughing or sneezing to prevent spreading the virus.",
+    "**Pain and Fever Relief:",
+    "* Acetaminophen (Tylenol)",
+    "* Ibuprofen (Advil, Motrin)."
+]).
+
+process('COVID19', _, [
+    "**Stay away from others immediately to prevent spreading the virus.",
+    "**Let people you've been near know about your positive test so they can take precautions.",
+    "**Contact your doctor for guidance on managing symptoms and next steps.",
+    "**If you must be around others, wear a mask to protect them."
+]).
+
+process('Allergic Rhinitis',_, [
+    "**Figure out what triggers your allergies and try to avoid exposure to those substances.",
+    "**Use HEPA filters in your home and vacuum regularly to minimize indoor allergens.",
+    "**Stick to your prescribed treatment plan and follow up with your healthcare provider regularly."
+]).
+
+process('Strep Throat',_, [
+    "**Take prescribed antibiotics as directed by your doctor.",
+    "**Rest your voice and avoid irritants like smoke or strong fumes.",
+    "**Use throat lozenges or warm salt water gargles to soothe your throat."
+]).
+
+
+process('Nill', 'COVID-19 (Coronavirus)', [
+    '**Isolate yourself and seek medical advice if symptoms worsen.',
+    '**Stay hydrated and get plenty of rest.',
+    '**Monitor your symptoms and follow public health guidelines.'
+]).
+
+process('Nill', 'Strep Throat', [
+    '**Take prescribed antibiotics as directed by your doctor.',
+    '**Rest your voice and avoid irritants like smoke or strong fumes.',
+    '**Use throat lozenges or warm salt water gargles to soothe your throat.'
+]).
+
+process('Nill', 'Sinusitis', [
+    '**Use saline nasal sprays or irrigation to relieve sinus congestion.',
+    '**Apply warm compresses to your face to ease pain and pressure.',
+    '**Take over-the-counter pain relievers like acetaminophen or ibuprofen.'
+]).
+
+
+process('Nill', 'Allergic Rhinitis', [
+    '**Avoid allergens that trigger your symptoms (e.g., pollen, dust).',
+    '**Use antihistamines to reduce sneezing and runny nose.',
+    '**Consider nasal corticosteroid sprays for long-term relief.'
+]).
+
+process('Nill', 'Strep Throat', [
+    '**Take prescribed antibiotics as directed by your doctor.',
+    '**Rest your voice and avoid irritants like smoke or strong fumes.',
+    '**Use throat lozenges or warm salt water gargles to soothe your throat.'
+]).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
